@@ -9,7 +9,7 @@ step 5 -------  At last we have to type python manage.py makemigartions
 
 This migrate all the changes in our project folder as well as in the app folder .....
 
-****** Import *****
+****** Important *****
 Declare this in the setting folder in the project folder .....
 
 import pymysql
