@@ -50,3 +50,14 @@ def delete_employee(request):
             else:
                 rs = 'Not Deleted'
         return Response({'msg':rs})
+
+@api_view(['POST'])
+def validation_middleware(request):
+    if request.method == 'POST':
+        serializer = EmployeeSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer.data)
+            return Response({'mdg':"Data is okk"})
+        else:
+            print(serializer.data["EmployeeName"])
+            return Response({'msg':[serializer.errors]})
