@@ -1,3 +1,7 @@
+from dataclasses import field, fields
+from pyexpat import model
+from statistics import mode
+from unittest import mock
 from rest_framework import serializers
 from crudapp.models import Department,Employee
 
@@ -26,4 +30,14 @@ class EmployeeSerializer(serializers.ModelSerializer):
          raise serializers.ValidationError("Departmane name is too sort")
       if len(value) >= 10:
          raise serializers.ValidationError("Departmane is too long")
+      return value
+
+class SearchEmployee(serializers.ModelSerializer):
+   class Meta:
+      model = Employee
+      fields = ['EmployeeName']
+
+   def validate_EmployeeName(self, value):
+      if len(value) <= 3:
+         raise serializers.ValidationError("Employeename is too sort")
       return value

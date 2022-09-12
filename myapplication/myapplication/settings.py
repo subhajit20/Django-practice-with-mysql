@@ -85,16 +85,16 @@ WSGI_APPLICATION = 'myapplication.wsgi.application'
 import pymysql
 pymysql.install_as_MySQLdb()
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'db',
-#         'USER':'root',
-#         'PASSWORD':'12345',
-#         'HOST':'localhost',
-#         'PORT':'3306'
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db',
+        'USER':'root',
+        'PASSWORD':'12345',
+        'HOST':'localhost',
+        'PORT':'3306'
+    }
+}
 
 
 # Password validation
