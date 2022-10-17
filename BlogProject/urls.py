@@ -36,5 +36,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/',include('createblog.urls')),
     path('account/',include('account.urls')),
+    path('realtimeapp/',include('realtime_app.urls')),
     path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

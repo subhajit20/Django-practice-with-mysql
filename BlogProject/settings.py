@@ -33,6 +33,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
+    'realtime_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,10 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     "corsheaders",
-    "createblog",
-    "account",
+    "createblog.apps.CreateblogConfig",
+    "account.apps.AccountConfig",
     'rest_framework_simplejwt', # required for serving swagger ui's css/js files
     'drf_yasg',
+    
 ]
 
 
@@ -72,6 +76,7 @@ CORS_ALLOW_METHODS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:9000",
+    'http://127.0.0.1:5500'
 ]
 
 AUTH_USER_MODEL = "account.Student"
@@ -94,7 +99,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'BlogProject.wsgi.application'
+# WSGI_APPLICATION = 'BlogProject.wsgi.application'
+ASGI_APPLICATION = 'BlogProject.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 
 REST_FRAMEWORK = {
