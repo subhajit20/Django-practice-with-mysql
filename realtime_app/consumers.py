@@ -10,7 +10,7 @@ class ChatConsumer(WebsocketConsumer):
             self.room_name,self.channel_name
         )
         self.accept()
-        msg = {'msg':f'{self.channel_name} has joined the group...'}
+        msg = {'msg':f'{self.channel_name} has joined the {self.room_name} group ...'}
 
         # self.channel_layer.group_send = It sends the "New user joined message" message to all the recipents of the group currently joined,
         # But the thing is group_send method only send the message the to the specific group which we have declared at below , but now we need to send the message to our front end so that we can access the message which server has sent to the group , That's why group_send takes two parameter where we need to specify a function name which takes the message all the way from server to client ...
@@ -28,14 +28,25 @@ class ChatConsumer(WebsocketConsumer):
         self.send(text_data=dumps(message))
 
 
+    def send_notification(self,event):
+        message = event["message"]
+
+        self.send(text_data=dumps(message))
+
+
+    def user_joined(self,event):
+        message = event["message"]
+
+        self.send(text_data=dumps(message))
+        
     def receive(self, text_data=None, bytes_data=None):
-        print(text_data)
-        pass
+        print("From receiver --> ",text_data)
+        self.send(text_data=text_data)
 
     def disconnect(self):
         async_to_sync(self.channel_layer.group_discard)(
             self.room_name, self.channel_name
         )
+        self.close()
 
 
-        
