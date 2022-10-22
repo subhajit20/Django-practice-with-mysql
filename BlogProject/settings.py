@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "account.apps.AccountConfig",
     'rest_framework_simplejwt', # required for serving swagger ui's css/js files
     'drf_yasg',
-    
+    'celery'
 ]
 
 
@@ -104,8 +104,11 @@ ASGI_APPLICATION = 'BlogProject.asgi.application'
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
 }
 
 
@@ -167,6 +170,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'subhajitstudent8@gmail.com'
+EMAIL_HOST_PASSWORD = 'nfjzzcgfdiyekrwe'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'default from email'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -203,3 +214,12 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=1),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+
+# CELERY SETTING
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_ACCESPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = "Asia/Kolkata"
