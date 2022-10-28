@@ -27,8 +27,5 @@ def Home(request):
 
 @api_view(['GET'])
 def Sending_Mail(request):
-        flag = sending_emails.delay()
-        if flag:
-            return Response({'msg':"Successfull!! Mail will be send within few seconds..."},status=status.HTTP_200_OK)
-        else:
-            return Response({'msg':"Mail has not successfully been sent..."},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        sending_emails.delay(email="subhajitstd07@gmail.com")
+        return Response({'msg':"Successfull!! Mail will be send within few seconds..."},status=status.HTTP_200_OK)
